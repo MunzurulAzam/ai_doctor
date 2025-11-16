@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "770072126921",
+    "firebase_url": "https://healer-cd2d5-default-rtdb.firebaseio.com",
+    "project_id": "healer-cd2d5",
+    "storage_bucket": "healer-cd2d5.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:770072126921:android:78efb85efcd97831a97418",
+        "android_client_info": {
+          "package_name": "com.example.dr_ai"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "770072126921-d5c9trh603skc9l8k1d7vkbc7pej3f0o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB08FysTJyr_NJsdl8JmP-3KnbC1_FNkx8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "770072126921-d5c9trh603skc9l8k1d7vkbc7pej3f0o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:770072126921:android:933745932fcd3d13a97418",
+        "android_client_info": {
+          "package_name": "com.example.healer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "770072126921-d5c9trh603skc9l8k1d7vkbc7pej3f0o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB08FysTJyr_NJsdl8JmP-3KnbC1_FNkx8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "770072126921-d5c9trh603skc9l8k1d7vkbc7pej3f0o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>770072126921-2iblqpgovau8he5hponof3m3pb6j2ppm.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.770072126921-2iblqpgovau8he5hponof3m3pb6j2ppm</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCEt4pNE89oelN6GHNAh-HSmuMgfFnmlHk</string>
+	<key>GCM_SENDER_ID</key>
+	<string>770072126921</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.drAi</string>
+	<key>PROJECT_ID</key>
+	<string>healer-cd2d5</string>
+	<key>STORAGE_BUCKET</key>
+	<string>healer-cd2d5.firebasestorage.app</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:770072126921:ios:028d4ca8c6efc3dba97418</string>
+	<key>DATABASE_URL</key>
+	<string>https://healer-cd2d5-default-rtdb.firebaseio.com</string>
+</dict>
+</plist>
