@@ -6,8 +6,8 @@ extension ThemeExtensions on BuildContext {
   ThemeData get theme => Theme.of(this);
   IconThemeData get iconTheme => Theme.of(this).iconTheme;
   TextTheme get textTheme => Theme.of(this).textTheme;
-  AppBarThemeData get appBarTheme => Theme.of(this).appBarTheme;
-  InputDecorationThemeData get inputDecoration =>
+  AppBarTheme get appBarTheme => Theme.of(this).appBarTheme;
+  InputDecorationTheme get inputDecoration =>
       Theme.of(this).inputDecorationTheme;
   CheckboxThemeData get checkboxTheme => Theme.of(this).checkboxTheme;
   ElevatedButtonThemeData get elevatedButtonTheme =>
