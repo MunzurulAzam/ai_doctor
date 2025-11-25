@@ -10,6 +10,7 @@ class GenerativeAiWebService {
   );
 
   static Future<String?> postData({required List<Content> content}) async {
+    
     try {
       final response = await _model.generateContent(content);
       log("Data posted successfully!");

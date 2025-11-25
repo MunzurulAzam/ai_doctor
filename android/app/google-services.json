@@ -8,6 +8,42 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:770072126921:android:383d2ce875552876a97418",
+        "android_client_info": {
+          "package_name": "com.dev.azam.aidoctor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "770072126921-d5c9trh603skc9l8k1d7vkbc7pej3f0o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB08FysTJyr_NJsdl8JmP-3KnbC1_FNkx8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "770072126921-d5c9trh603skc9l8k1d7vkbc7pej3f0o.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "770072126921-2iblqpgovau8he5hponof3m3pb6j2ppm.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.drAi"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:770072126921:android:78efb85efcd97831a97418",
         "android_client_info": {
           "package_name": "com.example.dr_ai"
@@ -30,6 +66,13 @@
             {
               "client_id": "770072126921-d5c9trh603skc9l8k1d7vkbc7pej3f0o.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "770072126921-2iblqpgovau8he5hponof3m3pb6j2ppm.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.drAi"
+              }
             }
           ]
         }
@@ -59,6 +102,13 @@
             {
               "client_id": "770072126921-d5c9trh603skc9l8k1d7vkbc7pej3f0o.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "770072126921-2iblqpgovau8he5hponof3m3pb6j2ppm.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.drAi"
+              }
             }
           ]
         }

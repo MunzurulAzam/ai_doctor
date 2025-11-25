@@ -66,8 +66,8 @@ class _MedicalTipCardState extends State<MedicalTipCard> {
           highlightColor: ColorManager.grey.withOpacity(0.4),
         ),
         child: _buildTipContent(
-          title: "عنوان النصيحة الطبية",
-          content: "هذا هو محتوى النصيحة الطبية التي سيتم عرضها للمستخدم. النصيحة الطبية تحتوي على معلومات مهمة للحفاظ على صحتك.",
+          title: "Title of the Medical Advice",
+          content: "This is the content of the medical advice that will be shown to the user. The medical advice contains important information to maintain your health.",
         ),
       );
     } else if (state is MedicalTipsError) {
@@ -78,7 +78,7 @@ class _MedicalTipCardState extends State<MedicalTipCard> {
           _buildHeader("Medical Tips"),
           const Gap(8),
           Text(
-            "فشل في تحميل النصيحة الطبية. الرجاء المحاولة مرة أخرى لاحقًا.",
+            "Failed to load the medical advice. Please try again later.",
             style: context.textTheme.bodySmall?.copyWith(color: ColorManager.black),
           ),
         ],
@@ -91,7 +91,7 @@ class _MedicalTipCardState extends State<MedicalTipCard> {
     } else {
       return _buildTipContent(
         title: "Medical Tips",
-        content: "ابق على اطلاع بأحدث النصائح الطبية والمشورة الصحية للحفاظ على نمط حياة صحي.",
+        content: "Stay updated with the latest medical advice and health guidance to maintain a healthy lifestyle",
       );
     }
   }

@@ -44,21 +44,23 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyCfa6pvzQ98cpME1HhoRlxAh9e3tQx9KnM',
-    appId: '1:473927393143:web:4706671fffadedfe534b72',
-    messagingSenderId: '473927393143',
-    projectId: 'dr-ai-e14d1',
-    authDomain: 'dr-ai-e14d1.firebaseapp.com',
-    storageBucket: 'dr-ai-e14d1.appspot.com',
-    measurementId: 'G-H78GBTFH8B',
+    apiKey: 'AIzaSyDJdJKXcqqGHtMlObcs6DA-3H6nPpUGmmE',
+    appId: '1:770072126921:web:3d28ac9ff0e2b983a97418',
+    messagingSenderId: '770072126921',
+    projectId: 'healer-cd2d5',
+    authDomain: 'healer-cd2d5.firebaseapp.com',
+    databaseURL: 'https://healer-cd2d5-default-rtdb.firebaseio.com',
+    storageBucket: 'healer-cd2d5.firebasestorage.app',
+    measurementId: 'G-FD4HXJG8WX',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBeoCC8wUy2hrY8H4Ioim2t9x5coPMe9JY',
-    appId: '1:473927393143:android:ee63ca9253b44cd5534b72',
-    messagingSenderId: '473927393143',
-    projectId: 'dr-ai-e14d1',
-    storageBucket: 'dr-ai-e14d1.appspot.com',
+    apiKey: 'AIzaSyB08FysTJyr_NJsdl8JmP-3KnbC1_FNkx8',
+    appId: '1:770072126921:android:78efb85efcd97831a97418',
+    messagingSenderId: '770072126921',
+    projectId: 'healer-cd2d5',
+    databaseURL: 'https://healer-cd2d5-default-rtdb.firebaseio.com',
+    storageBucket: 'healer-cd2d5.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
