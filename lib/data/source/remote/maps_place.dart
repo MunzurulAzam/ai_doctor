@@ -33,8 +33,7 @@ class PlacesWebservices {
   // }
 
   //! Fetch Suggetions.
-  static Future fetchPlaceSuggestions(String place, String sessionToken,
-      {double? latitude, double? longitude}) async {
+  static Future fetchPlaceSuggestions(String place, String sessionToken, {double? latitude, double? longitude}) async {
     try {
       Response response = await dio.get(
         EnvManager.placeSuggetion,
@@ -61,8 +60,7 @@ class PlacesWebservices {
 
       return response.data['predictions'];
     } on DioException {
-      return Future.error("Place suggestions error: ",
-          StackTrace.fromString("this is the trace"));
+      return Future.error("Place suggestions error: ", StackTrace.fromString("this is the trace"));
     } catch (err) {
       log('Dio Method err:$err');
     }
@@ -82,8 +80,7 @@ class PlacesWebservices {
       );
       return response.data;
     } on DioException {
-      return Future.error(
-          "Place location error: ", StackTrace.fromString("this is the trace"));
+      return Future.error("Place location error: ", StackTrace.fromString("this is the trace"));
     } catch (err) {
       log('Dio Method err:$err');
     }
@@ -102,15 +99,13 @@ class PlacesWebservices {
       );
       return response.data;
     } on DioException {
-      return Future.error("Place destination error: ",
-          StackTrace.fromString("this is the trace"));
+      return Future.error("Place destination error: ", StackTrace.fromString("this is the trace"));
     } catch (err) {
       log('Dio Method err:$err');
     }
   }
 
-  static Future getNearestHospital(
-      double latitude, double longitude, String sessionToken) async {
+  static Future getNearestHospital(double latitude, double longitude, String sessionToken) async {
     final queryParameters = {
       'location': '$latitude,$longitude',
       'radius': '5000',
@@ -120,8 +115,7 @@ class PlacesWebservices {
     };
 
     try {
-      final response = await dio.get(EnvManager.nearestHospital,
-          queryParameters: queryParameters);
+      final response = await dio.get(EnvManager.nearestHospital, queryParameters: queryParameters);
       // log("Nearby hospitals data are here: ${response.data}");
 
       for (int i = 0; i < response.data['results'].length; i++) {
@@ -136,20 +130,21 @@ class PlacesWebservices {
 class FindHospitalWebService {
   static final Dio dio = Dio();
 
-  static Future<List<FindHospitalsPlaceInfo>> getNearestHospital(
-      double latitude, double longitude, double? radius) async {
+  static Future<List<FindHospitalsPlaceInfo>> getNearestHospital(double latitude, double longitude, double? radius) async {
     List<FindHospitalsPlaceInfo> hospitals = [];
 
     log('call getNearestHospital');
+    final queryParams = {
+      'location': '$latitude,$longitude',
+      'radius': radius?.toString() ?? '5000',
+      'types': ['hospital', 'emergency_hospital', 'surgery_hospital'],
+      'key': EnvManager.googleMapApiKey,
+    };
+    log('Query Parameters: $queryParams');
     try {
       final response = await dio.get(
         EnvManager.nearestHospital,
-        queryParameters: {
-          'location': '$latitude,$longitude',
-          'radius': radius?.toString() ?? '5000',
-          'types': ['hospital', 'emergency_hospital', 'surgery_hospital'],
-          'key': EnvManager.googleMapApiKey,
-        },
+        queryParameters: queryParams,
       );
 
       if (response.data == null || response.data['results'] == null) {

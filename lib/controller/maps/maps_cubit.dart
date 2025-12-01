@@ -101,6 +101,7 @@ class MapsCubit extends Cubit<MapsState> {
   }
 
   Future<void> getNearestHospitals({double? radius}) async {
+    log(_locationData!.latitude.toString());
     try {
       emit(FindHospitalLoading());
       _locationData ??= await _location.getLocation();
