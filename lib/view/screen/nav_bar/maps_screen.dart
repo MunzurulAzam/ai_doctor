@@ -607,37 +607,43 @@ class _MapScreenState extends State<MapScreen> {
                                           ],
                                         )
                                       : null,
-                                  trailing: Column(
+                                    trailing: Column(
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
                                       Text(
-                                        "rating",
-                                        style: context.textTheme.bodyLarge
-                                            ?.copyWith(
-                                                fontSize: 12.spMin,
-                                                fontWeight: FontWeight.w400),
+                                      "rating",
+                                      style: context.textTheme.bodyLarge
+                                        ?.copyWith(
+                                          fontSize: 12.spMin,
+                                          fontWeight: FontWeight.w400),
                                       ),
                                       Text(
-                                        (_hospitalList[index]?.rating)
-                                            .toString(),
-                                        style: context.textTheme.bodySmall
-                                            ?.copyWith(
-                                                color: _hospitalList[index]!
-                                                            .rating! >=
-                                                        2.5
-                                                    ? ColorManager.correct
-                                                    : ColorManager.error),
+                                      (_hospitalList[index]?.rating ?? 0.0)
+                                        .toString(),
+                                      style: context.textTheme.bodySmall
+                                        ?.copyWith(
+                                          color: (_hospitalList[index]
+                                                ?.rating ??
+                                              0.0) >=
+                                            2.5
+                                            ? ColorManager.correct
+                                            : ColorManager.error),
                                       )
                                     ],
                                   ),
-                                  leading: _hospitalList[index]!.openNow!
+                                    leading: _hospitalList[index]?.openNow == true
                                       ? const Icon(
-                                          Icons.lock_open,
-                                          color: ColorManager.correct,
-                                        )
-                                      : const Icon(
+                                        Icons.lock_open,
+                                        color: ColorManager.correct,
+                                      )
+                                      : _hospitalList[index]?.openNow == false
+                                        ? const Icon(
                                           Icons.lock_outline,
                                           color: ColorManager.error,
+                                        )
+                                        : const Icon(
+                                          Icons.lock_open,
+                                          color: ColorManager.correct,
                                         ),
                                 ),
                               );
