@@ -6,7 +6,7 @@
         android:usesCleartextTraffic="true"
         android:enableOnBackInvokedCallback="true">
         <meta-data android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDaf6uBo6U3EtZp_xC21L3ca2dLdzj5Gmw" />
+            android:value="AIzaSyC1r38Vv1ldD4EA6VD2-EZt9HqbwpVuo7o" />
         <meta-data
             android:name="com.google.android.gms.applicationId"
             android:value="YOUR_GOOGLE_APP_ID" />
