@@ -83,25 +83,6 @@ class _AccountScreenState extends State<AccountScreen> {
                   ),
                   divider,
                   BuildProfileCard(
-                      title: "Terms & Conditions",
-                      image: ImageManager.termsIcon,
-                      onPressed: () => Navigator.pushNamed(
-                          context, RouteManager.termsAndConditions)),
-                  divider,
-                  BuildProfileCard(
-                      title: "Privacy policy",
-                      image: ImageManager.privacyPolicyIcon,
-                      onPressed: () => Navigator.pushNamed(
-                          context, RouteManager.privacyPolicy)),
-                  divider,
-                  BuildProfileCard(
-                    title: "About Us",
-                    image: ImageManager.aboutUsIcon,
-                    onPressed: () =>
-                        Navigator.pushNamed(context, RouteManager.aboutUs),
-                  ),
-                  divider,
-                  BuildProfileCard(
                     title: "Rate Us",
                     image: ImageManager.rateUsIcon,
                     onPressed: () {

@@ -1,8 +1,3 @@
-import '../../view/screen/account/about_us/app_feedback_screen.dart';
-import '../../view/screen/account/about_us/app_updates_screen.dart';
-import '../../view/screen/account/about_us/social_media_screen.dart';
-import '../../view/screen/account/privacy_policy.dart';
-import '../../view/screen/account/terms_and_conditions.dart';
 import 'routes.dart';
 import '../../controller/auth/log_out/log_out_cubit.dart';
 import '../../view/screen/account/delete_account/delete_account_screen.dart';
@@ -15,7 +10,6 @@ import '../../controller/auth/sign_in/sign_in_cubit.dart';
 import '../../controller/auth/sign_up/sign_up_cubit.dart';
 import '../../controller/launch_uri/launch_uri_cubit.dart';
 import '../../controller/maps/maps_cubit.dart';
-import '../../view/screen/account/about_us/about_us_screen.dart';
 import '../../view/screen/account/change_password/new_pass_word.dart';
 import '../../view/screen/account/change_password/old_password_screen.dart';
 import '../../view/screen/auth/create_profile.dart';
@@ -97,10 +91,7 @@ class AppRouter {
         return PageTransitionManager.fadeTransition(
           const NewPasswordScreen(),
         );
-      case RouteManager.aboutUs:
-        return PageTransitionManager.materialSlideTransition(
-          const AboutUsScreen(),
-        );
+
       case RouteManager.maps:
         return PageTransitionManager.fadeTransition(BlocProvider(
           create: (_) => MapsCubit(),
@@ -113,27 +104,7 @@ class AppRouter {
       case RouteManager.deleteAccount:
         return PageTransitionManager.fadeTransition(
             const DeleteAccountScreen());
-      case RouteManager.termsAndConditions:
-        return PageTransitionManager.materialSlideTransition(
-          BlocProvider(
-              create: (_) => LaunchUriCubit(),
-              child: const TermsAndConditionsScreen()),
-        );
-      case RouteManager.privacyPolicy:
-        return PageTransitionManager.materialSlideTransition(
-          BlocProvider(
-              create: (_) => LaunchUriCubit(),
-              child: const PrivacyPolicyScreen()),
-        );
-      case RouteManager.appUpdates:
-        return PageTransitionManager.materialSlideTransition(
-            const AppUpdatesScreen());
-      case RouteManager.appSocialMedia:
-        return PageTransitionManager.materialSlideTransition(
-            const SocialMediaScreen());
-      case RouteManager.appFeedback:
-        return PageTransitionManager.materialSlideTransition(
-            const AppFeedbackScreen());
+
       default:
         return null;
     }
