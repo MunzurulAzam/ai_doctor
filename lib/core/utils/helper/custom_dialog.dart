@@ -305,7 +305,7 @@ class LoginDialog extends StatelessWidget {
                 ),
                 Gap(3.h),
                 Text(
-                  "Please verify your email to login.",
+                  "Please verify your email(from your spam folder) to login.",
                   textAlign: TextAlign.center,
                   style: context.textTheme.bodySmall?.copyWith(
                     color: ColorManager.error,
