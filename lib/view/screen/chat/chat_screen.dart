@@ -250,7 +250,7 @@ class _ChatScreenState extends State<ChatScreen> {
             IconButton(
               onPressed: _navigateToVoiceScreen,
               icon: SvgPicture.asset(ImageManager.recordIcon),
-              tooltip: 'الانتقال إلى محادثة صوتية',
+              tooltip: 'Record Voice Message',
             ),
             IconButton(
               onPressed: () => _sendMessage(),
