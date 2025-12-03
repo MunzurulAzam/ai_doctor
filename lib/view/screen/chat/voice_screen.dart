@@ -27,7 +27,6 @@ class _VoiceChatScreenState extends State<VoiceChatScreen> {
   String _transcribedText = 'Tap on the microphone to start';
   String _responseText = '';
   String _selectedLanguage = 'en-US';
-  bool _isArabic = false;
 
   @override
   void initState() {
@@ -46,7 +45,7 @@ class _VoiceChatScreenState extends State<VoiceChatScreen> {
   Future<void> _initTts() async {
     await _flutterTts.setLanguage(_getTextToSpeechLanguage());
     await _flutterTts.setPitch(1.0);
-    await _flutterTts.setSpeechRate(_isArabic ? 0.8 : 0.65);
+    await _flutterTts.setSpeechRate( 0.65);
     _flutterTts.setCompletionHandler(() {
       setState(() {
         _isSpeaking = false;
@@ -55,7 +54,7 @@ class _VoiceChatScreenState extends State<VoiceChatScreen> {
   }
 
   String _getTextToSpeechLanguage() {
-    return _isArabic ? 'ar-EG' : 'en-US';
+    return 'en-US';
   }
 
   void _listen() async {
@@ -132,8 +131,7 @@ class _VoiceChatScreenState extends State<VoiceChatScreen> {
 
   void _toggleLanguage() {
     setState(() {
-      _isArabic = !_isArabic;
-      _selectedLanguage = _isArabic ? 'ar-EG' : 'en-US';
+      _selectedLanguage = 'en-US';
       _transcribedText = 'Tap on the microphone to start';
     });
     _initTts();
@@ -169,7 +167,7 @@ class _VoiceChatScreenState extends State<VoiceChatScreen> {
                       const Icon(Icons.language),
                       const SizedBox(width: 4),
                       Text(
-                        _isArabic ? "AR" : "EN",
+                       "EN",
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 14,
@@ -236,9 +234,9 @@ class _VoiceChatScreenState extends State<VoiceChatScreen> {
                           style: context.textTheme.bodySmall
                               ?.copyWith(color: ColorManager.white),
                           textAlign:
-                              _isArabic ? TextAlign.right : TextAlign.left,
+                               TextAlign.left,
                           textDirection:
-                              _isArabic ? TextDirection.rtl : TextDirection.ltr,
+                               TextDirection.ltr,
                         ),
                       ],
                     ),
@@ -394,9 +392,9 @@ class _VoiceChatScreenState extends State<VoiceChatScreen> {
                       color: ColorManager.darkGrey,
                       fontSize: 16.sp,
                     ),
-                    textAlign: _isArabic ? TextAlign.right : TextAlign.left,
+                    textAlign:  TextAlign.left,
                     textDirection:
-                        _isArabic ? TextDirection.rtl : TextDirection.ltr,
+                        TextDirection.ltr,
                   ),
                 ),
               ),

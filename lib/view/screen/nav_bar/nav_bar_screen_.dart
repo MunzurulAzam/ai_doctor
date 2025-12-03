@@ -24,13 +24,13 @@ class _NavbarScreenState extends State<NavbarScreen> {
     return {
       "icon": [
         ImageManager.chatIcon,
-        ImageManager.nfcIcon,
+        // ImageManager.nfcIcon,
         ImageManager.mapIcon,
         ImageManager.userIcon,
       ],
       "text": [
         "chat",
-        "nfc",
+        // "nfc",
         "map",
         "account",
       ]
@@ -40,7 +40,7 @@ class _NavbarScreenState extends State<NavbarScreen> {
   List<Widget> _buildScreens() {
     return <Widget>[
       const HomeScreen(),
-      const NFCScreen(),
+      // const NFCScreen(),
       const MapScreen(),
       const AccountScreen(),
     ];
@@ -85,12 +85,12 @@ class _NavbarScreenState extends State<NavbarScreen> {
             Shadow(blurRadius: 20, color: ColorManager.grey.withOpacity(0.2)),
 
         activeIndex: _bottomNavIndex,
-        gapLocation: GapLocation.center,
+        gapLocation: GapLocation.none,
         height: 65.h,
         leftCornerRadius: 22,
         rightCornerRadius: 22,
         onTap: (index) => setState(() => _bottomNavIndex = index),
-        itemCount: 4,
+        itemCount: 3,
         tabBuilder: (int index, bool isActive) {
           return CustomToolTip(
             message: _buildItems()["text"]![index],
