@@ -401,7 +401,7 @@ class _MapScreenState extends State<MapScreen> {
         .toList();
   }
 
-  /// call
+  //! call
   Future<void> _getDirections() async {
     await context.bloc<MapsCubit>().getPlaceDirections(
           origin: LatLng(_locationData!.latitude!, _locationData!.longitude!),

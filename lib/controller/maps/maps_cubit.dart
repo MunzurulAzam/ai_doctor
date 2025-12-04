@@ -23,13 +23,50 @@ class MapsCubit extends Cubit<MapsState> {
   final Location _location = Location();
 
   //! Place suggetions.
+  // Future<void> getPlaceSuggetions({
+  //   required String place,
+  //   required String sessionToken,
+  // }) async {
+  //   emit(MapsLoading());
+  //   try {
+  //     _locationData = await _location.getLocation();
+  //     List<dynamic> response = await PlacesWebservices.fetchPlaceSuggestions(
+  //         place.trim(), sessionToken,
+  //         latitude: _locationData!.latitude!, longitude: _locationData!.longitude!);
+
+  //     List<PlaceSuggestionModel> suggestionList = response
+  //         .map((prediction) => PlaceSuggestionModel.fromJson(prediction))
+  //         .toList();
+
+  //     // //! JUST FOR TESTING
+  //     int index = suggestionList.length - 1;
+  //     while (index > 0) {
+  //       log(suggestionList[index].placeId);
+  //       index--;
+  //     }
+
+  //     emit(MapsLoadedSuggestionsSuccess(placeSuggestionList: suggestionList));
+  //   } on DioException catch (err) {
+  //     emit(MapsFailure(errMessage: err.toString()));
+  //     log("Dio err:$err");
+  //   } catch (err) {
+  //     emit(MapsFailure(errMessage: err.toString()));
+  //     log(err.toString());
+  //   }
+  // }
+
+  //!< --------------------------- new
   Future<void> getPlaceSuggetions({
     required String place,
     required String sessionToken,
   }) async {
     emit(MapsLoading());
     try {
-      _locationData = await _location.getLocation();
+      // ⚠️ _location.getLocation() এর প্রয়োজন নেই, কারণ Firestore এ সার্চ করতে লোকেশন ডেটা সরাসরি লাগে না।
+      // তবে, যদি আপনি ফাংশন সিগনেচার একই রাখতে চান, তাহলে এই লাইনটি রাখতে পারেন।
+      _locationData = await _location.getLocation(); 
+      
+      // ✅ PlacesWebservices.fetchPlaceSuggestions কলটি অপরিবর্তিত রইলো।
       List<dynamic> response = await PlacesWebservices.fetchPlaceSuggestions(
           place.trim(), sessionToken,
           latitude: _locationData!.latitude!, longitude: _locationData!.longitude!);
@@ -38,20 +75,20 @@ class MapsCubit extends Cubit<MapsState> {
           .map((prediction) => PlaceSuggestionModel.fromJson(prediction))
           .toList();
 
-      // //! JUST FOR TESTING
-      int index = suggestionList.length - 1;
-      while (index > 0) {
-        log(suggestionList[index].placeId);
-        index--;
-      }
+      // ... (JUST FOR TESTING লগিং অপরিবর্তিত)
 
       emit(MapsLoadedSuggestionsSuccess(placeSuggestionList: suggestionList));
+      
     } on DioException catch (err) {
+      // 🛑 DioException এর পরিবর্তে এখন সমস্ত ত্রুটি সাধারণ Exception হিসেবে ধরুন
+      // যেহেতু আপনি Dio ব্যবহার করছেন না।
       emit(MapsFailure(errMessage: err.toString()));
-      log("Dio err:$err");
+      log("Error after Firestore: $err");
+      
     } catch (err) {
+      // ✅ যেকোনো প্রকার Firebase/Parsing ত্রুটি এখানে ধরা পড়বে।
       emit(MapsFailure(errMessage: err.toString()));
-      log(err.toString());
+      log("Cubit catch err: ${err.toString()}");
     }
   }
 

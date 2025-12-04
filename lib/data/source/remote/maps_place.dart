@@ -35,36 +35,81 @@ class PlacesWebservices {
   // }
 
   //! Fetch Suggetions.
-  static Future fetchPlaceSuggestions(String place, String sessionToken, {double? latitude, double? longitude}) async {
+  // static Future fetchPlaceSuggestions(String place, String sessionToken, {double? latitude, double? longitude}) async {
+  //   try {
+  //     Response response = await dio.get(
+  //       EnvManager.placeSuggetion,
+  //       queryParameters: {
+  //         'location': '$latitude,$longitude',
+  //         'radius': 5000,
+  //         'input': place,
+  //         'region': 'eg',
+  //         'keyword': 'cruise',
+  //         'types': 'hospital',
+  //         'components': 'country:eg',
+  //         'key': EnvManager.googleMapApiKey,
+  //         'sessiontoken': sessionToken,
+  //       },
+  //     );
+
+  //     // log(response.data['predictions'].toString());
+  //     // log(response.statusCode.toString());
+  //     // //! DATA MAPING
+  //     // List<dynamic> predictions = response.data['predictions'];
+  //     // List<PlaceSuggestionModel> suggestionList = predictions
+  //     //     .map((prediction) => PlaceSuggestionModel.fromJson(prediction))
+  //     //     .toList();
+
+  //     return response.data['predictions'];
+  //   } on DioException {
+  //     return Future.error("Place suggestions error: ", StackTrace.fromString("this is the trace"));
+  //   } catch (err) {
+  //     log('Dio Method err:$err');
+  //   }
+  // }
+
+  //!< ------------------- new
+  static Future<List<dynamic>> fetchPlaceSuggestions(String place, String sessionToken, {double? latitude, double? longitude}) async {
     try {
-      Response response = await dio.get(
-        EnvManager.placeSuggetion,
-        queryParameters: {
-          'location': '$latitude,$longitude',
-          'radius': 5000,
-          'input': place,
-          'region': 'eg',
-          'keyword': 'cruise',
-          'types': 'hospital',
-          'components': 'country:eg',
-          'key': EnvManager.googleMapApiKey,
-          'sessiontoken': sessionToken,
-        },
-      );
+      // 🛑 পুরানো Google Maps API কল লজিক এখান থেকে সরিয়ে দেওয়া হয়েছে।
+      
+      // ✅ নতুন Firestore লজিক শুরু:
+      log('Fetching suggestions from Firestore...');
+      
+      // ধরে নিচ্ছি, আপনি 'place' ইনপুট অনুযায়ী Firestore এ কোয়েরি করছেন।
+      // এখানে একটি সাধারণ 'where' query ব্যবহার করা হলো। 
+      // আপনি আপনার প্রয়োজন অনুযায়ী query পরিবর্তন করতে পারেন।
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection('place_suggestions') // আপনার কালেকশনের নাম
+          .where('mainText', isGreaterThanOrEqualTo: place.trim()) // 'place' দিয়ে সার্চ
+          .where('mainText', isLessThan: place.trim() + 'z')
+          .limit(10) // সাজেশন সংখ্যা সীমিত করা হলো
+          .get();
 
-      // log(response.data['predictions'].toString());
-      // log(response.statusCode.toString());
-      // //! DATA MAPING
-      // List<dynamic> predictions = response.data['predictions'];
-      // List<PlaceSuggestionModel> suggestionList = predictions
-      //     .map((prediction) => PlaceSuggestionModel.fromJson(prediction))
-      //     .toList();
+      List<Map<String, dynamic>> predictions = querySnapshot.docs.map((doc) {
+        final data = doc.data() as Map<String, dynamic>;
+        
+        // **আউটপুট ফরম্যাট ম্যাপ করা**
+        // এটি সবচেয়ে গুরুত্বপূর্ণ, যাতে আপনার PlaceSuggestionModel.fromJson চলতে পারে।
+        return {
+          // 'description', 'place_id' ইত্যাদি নামগুলো Google API response এর সাথে মেলাতে হবে
+          'description': data['description'], 
+          'place_id': data['placeId'], 
+          'structured_formatting': {
+            'main_text': data['mainText'],
+            'secondary_text': data['secondaryText'],
+          }
+        };
+      }).toList();
 
-      return response.data['predictions'];
-    } on DioException {
-      return Future.error("Place suggestions error: ", StackTrace.fromString("this is the trace"));
+      log('Firestore: Successfully fetched ${predictions.length} suggestions.');
+      
+      return predictions; // এটি এখন List<dynamic> হিসেবে রিটার্ন করবে (পূর্বে response.data['predictions'] করত)
+      
     } catch (err) {
-      log('Dio Method err:$err');
+      // 🛑 DioException এর পরিবর্তে এখন সাধারণ Exception/Firebase Exception হ্যান্ডেল করা হচ্ছে।
+      log('🛑 Firestore Method err: $err');
+      return Future.error("Place suggestions error: $err", StackTrace.fromString("this is the trace"));
     }
   }
 
