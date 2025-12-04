@@ -102,19 +102,19 @@ class HomeScreen extends StatelessWidget {
         ContactCard(
           image: ImageManager.ambulanceIcon,
           title: "Ambulance",
-          number: "123",
+          number: "000",
           color: ColorManager.green,
         ),
         ContactCard(
           image: ImageManager.policeIcon,
           title: "Emergency",
-          number: "112",
+          number: "000",
           color: ColorManager.darkBlue,
         ),
         ContactCard(
           image: ImageManager.firefightingIcon,
           title: "Firefighting",
-          number: "180",
+          number: "16163",
           color: ColorManager.orange,
         ),
       ],
