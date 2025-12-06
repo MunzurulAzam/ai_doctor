@@ -65,17 +65,6 @@ class _AccountScreenState extends State<AccountScreen> {
                   ),
                   divider,
                   BuildProfileCard(
-                    title: "Dark Mode",
-                    image: ImageManager.darkModeIcon,
-                    onPressed: () {},
-                  ),
-                  divider,
-                  BuildProfileCard(
-                      title: "Languages",
-                      image: ImageManager.languageIcon,
-                      onPressed: () {}),
-                  divider,
-                  BuildProfileCard(
                     title: "Change Password",
                     image: ImageManager.changePasswordIcon,
                     onPressed: () =>

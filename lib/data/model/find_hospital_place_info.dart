@@ -294,7 +294,7 @@ class FindHospitalsPlaceInfo {
  
       vicinity: data['vicinity'],
       formattedAddress: data['address'], 
-      rating: (data['ratings'] is num) ? double.tryParse(data['ratings'].toString()) : null,
+      rating: (data['rating'] is num) ? (data['rating'] as num).toDouble() : null,
       userRatingsTotal: data['user_ratings_total'] ?? 0,
       types: typesList,   
       distance: distanceString, 
