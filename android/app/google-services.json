@@ -46,7 +46,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:770072126921:android:78efb85efcd97831a97418",
         "android_client_info": {
-          "package_name": "com.example.dr_ai"
+          "package_name": "com.dev.dr_ai"
         }
       },
       "oauth_client": [
