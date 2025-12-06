@@ -69,70 +69,117 @@ class PlacesWebservices {
   // }
 
   //!< ------------------- new
-  static Future<List<dynamic>> fetchPlaceSuggestions(String place, String sessionToken, {double? latitude, double? longitude}) async {
+static Future<List<dynamic>> fetchPlaceSuggestions(String place, String sessionToken, {double? latitude, double? longitude}) async {
+  try {
+    log('Fetching suggestions from Firestore...');
+    final placeToSearch = place.trim().toLowerCase();
+
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection('place_suggestion') 
+        .get();
+
+    if (querySnapshot.docs.isEmpty) {
+      log('Firestore: Collection is empty or collection name is wrong.');
+      return [];
+    }
+    
+    final docData = querySnapshot.docs.first.data() as Map<String, dynamic>;
+    
+    List<dynamic> allSuggestions = docData['suggestions_array'] ?? [];
+
+    List<dynamic> filteredSuggestions = allSuggestions.where((suggestion) {
+      final mainText = suggestion['mainText']?.toLowerCase() ?? '';
+      final description = suggestion['description']?.toLowerCase() ?? '';
+      
+      return mainText.startsWith(placeToSearch) || description.startsWith(placeToSearch);
+    }).toList();
+
+    List<Map<String, dynamic>> predictions = filteredSuggestions.map((suggestion) {
+      return {
+        'description': suggestion['description'], 
+        'place_id': suggestion['placeId'], 
+        'structured_formatting': {
+          'main_text': suggestion['mainText'],
+          'secondary_text': suggestion['secondaryText'],
+        }
+      };
+    }).toList();
+
+    log('Firestore: Successfully fetched ${predictions.length} suggestions.');
+    return predictions;
+    
+  } catch (err) {
+    log('Firestore Method err: $err');
+    return Future.error("Place suggestions error: $err", StackTrace.fromString("this is the trace"));
+  }
+}
+  
+  //! fetch Location
+  // static Future fetchPlaceLocation(String placeId, String sessionToken) async {
+  //   try {
+  //     Response response = await dio.get(
+  //       EnvManager.placeLocation,
+  //       queryParameters: {
+  //         'place_id': placeId,
+  //         'fields': 'geometry',
+  //         'key': EnvManager.googleMapApiKey,
+  //         'sessiontoken': sessionToken,
+  //       },
+  //     );
+  //     return response.data;
+  //   } on DioException {
+  //     return Future.error("Place location error: ", StackTrace.fromString("this is the trace"));
+  //   } catch (err) {
+  //     log('Dio Method err:$err');
+  //   }
+  // }
+
+  //!<---------------- new
+static Future<Map<String, dynamic>> fetchPlaceLocation(String placeId, String sessionToken) async {
     try {
-      // 🛑 পুরানো Google Maps API কল লজিক এখান থেকে সরিয়ে দেওয়া হয়েছে।
-      
-      // ✅ নতুন Firestore লজিক শুরু:
-      log('Fetching suggestions from Firestore...');
-      
-      // ধরে নিচ্ছি, আপনি 'place' ইনপুট অনুযায়ী Firestore এ কোয়েরি করছেন।
-      // এখানে একটি সাধারণ 'where' query ব্যবহার করা হলো। 
-      // আপনি আপনার প্রয়োজন অনুযায়ী query পরিবর্তন করতে পারেন।
-      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
-          .collection('place_suggestions') // আপনার কালেকশনের নাম
-          .where('mainText', isGreaterThanOrEqualTo: place.trim()) // 'place' দিয়ে সার্চ
-          .where('mainText', isLessThan: place.trim() + 'z')
-          .limit(10) // সাজেশন সংখ্যা সীমিত করা হলো
+      log('Fetching location for placeId: $placeId from Firestore...');
+      final trimmedPlaceId = placeId.trim();
+
+      DocumentSnapshot docSnapshot = await FirebaseFirestore.instance
+          .collection('place_location')
+          .doc(trimmedPlaceId) 
           .get();
 
-      List<Map<String, dynamic>> predictions = querySnapshot.docs.map((doc) {
-        final data = doc.data() as Map<String, dynamic>;
-        
-        // **আউটপুট ফরম্যাট ম্যাপ করা**
-        // এটি সবচেয়ে গুরুত্বপূর্ণ, যাতে আপনার PlaceSuggestionModel.fromJson চলতে পারে।
-        return {
-          // 'description', 'place_id' ইত্যাদি নামগুলো Google API response এর সাথে মেলাতে হবে
-          'description': data['description'], 
-          'place_id': data['placeId'], 
-          'structured_formatting': {
-            'main_text': data['mainText'],
-            'secondary_text': data['secondaryText'],
+      if (!docSnapshot.exists) {
+        log('Firestore: Location data not found for placeId: $trimmedPlaceId');
+        throw Exception("Location data not found in Firestore.");
+      }
+      
+      final firestoreData = docSnapshot.data() as Map<String, dynamic>;
+
+      final locationMap = firestoreData['location'] as Map<String, dynamic>?; 
+      
+      if (locationMap == null) {
+        log("Firestore: Document is missing the 'location' field or it is null.");
+        throw Exception("Invalid document structure: 'location' field is missing.");
+      }
+
+      final transformedResponse = {
+        'result': {
+          'geometry': {
+            'location': {
+              'lat': locationMap['lat'], 
+              'lng': locationMap['lng'], 
+            }
           }
-        };
-      }).toList();
-
-      log('Firestore: Successfully fetched ${predictions.length} suggestions.');
-      
-      return predictions; // এটি এখন List<dynamic> হিসেবে রিটার্ন করবে (পূর্বে response.data['predictions'] করত)
-      
-    } catch (err) {
-      // 🛑 DioException এর পরিবর্তে এখন সাধারণ Exception/Firebase Exception হ্যান্ডেল করা হচ্ছে।
-      log('🛑 Firestore Method err: $err');
-      return Future.error("Place suggestions error: $err", StackTrace.fromString("this is the trace"));
-    }
-  }
-
-  //! fetch Location
-  static Future fetchPlaceLocation(String placeId, String sessionToken) async {
-    try {
-      Response response = await dio.get(
-        EnvManager.placeLocation,
-        queryParameters: {
-          'place_id': placeId,
-          'fields': 'geometry',
-          'key': EnvManager.googleMapApiKey,
-          'sessiontoken': sessionToken,
         },
-      );
-      return response.data;
-    } on DioException {
-      return Future.error("Place location error: ", StackTrace.fromString("this is the trace"));
-    } catch (err) {
-      log('Dio Method err:$err');
-    }
-  }
+        'description': firestoreData['description'], 
+        'placeId': trimmedPlaceId, 
+      };
 
+      log('Firestore: Successfully fetched location data.');
+      return transformedResponse;
+
+    } catch (err) {
+      log('Firestore Location Method error: ${err.runtimeType}: ${err.toString()}');
+      return Future.error("Place location error (Firestore): ${err.toString()}", StackTrace.fromString("Webservices trace"));
+    }
+}
   //! get destination
   static Future getPlaceDirections(LatLng origin, LatLng destination) async {
     try {

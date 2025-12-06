@@ -26,7 +26,7 @@ class _MedicalTipCardState extends State<MedicalTipCard> {
   @override
   Widget build(BuildContext context) {
     return Directionality(
-      textDirection: TextDirection.rtl,
+      textDirection: TextDirection.ltr,
       child: BlocBuilder<MedicalTipsCubit, MedicalTipsState>(
         builder: (context, state) {
           return _buildCard(state);
@@ -75,10 +75,12 @@ class _MedicalTipCardState extends State<MedicalTipCard> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          _buildHeader("Medical Tips"),
+          // _buildHeader("Medical Tips"),
+          _buildHeader("Welcome to Dr.AI"),
           const Gap(8),
           Text(
-            "Failed to load the medical advice. Please try again later.",
+            // "Failed to load the medical advice. Please try again later.",
+            "You can use Dr.AI to get medical-related services.",
             style: context.textTheme.bodySmall?.copyWith(color: ColorManager.black),
           ),
         ],
