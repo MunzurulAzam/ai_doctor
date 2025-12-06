@@ -1,4 +1,4 @@
-package com.example.dr_ai
+package com.dev.dr_ai
 
 import io.flutter.embedding.android.FlutterActivity
 
